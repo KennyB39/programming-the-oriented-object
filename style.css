@@ -1,3 +1,45 @@
-.container{
-    
+* {
+    margin: 0;
+    padding: 0;
+
 }
+
+header {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(34, 24, 43);
+    color:antiquewhite;
+    font-size: xx-large;
+    padding: 1.75rem;
+
+}
+
+main {
+    margin: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 15vw;
+    height: 13vw;
+    margin:1rem;
+    box-shadow: 3px 3px 7px 1px rgba(rgb(156, 150, 150), rgb(132, 144, 132), rgb(174, 174, 207), alpha);
+    background-color: blanchedalmond;
+    justify-content: center;
+
+}
+
+.card-head {
+    width: 100%;
+    height: fit-content;
+    background-color: bisque;
+    color: aliceblue;
+
+}
+
