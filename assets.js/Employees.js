@@ -1,4 +1,4 @@
-class Employee{
+class Employees{
     const( name, id, email ){
         this.name = name
         this.id = id
@@ -19,4 +19,4 @@ class Employee{
     
 }
 
-module.exports = Employee;
+module.exports = Employees;
