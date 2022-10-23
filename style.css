@@ -15,19 +15,20 @@ header {
 }
 
 main {
-    margin: 2rem;
+    margin: 8rem;
     padding: 100;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: wrap-reverse ;
     justify-content: center;
     align-items: center;
-    display: inline-block;
+    
 
 }
 
 .card {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: ;
     width: 40vw;
     margin:1rem;
     box-shadow: 3px 3px 7px 1px rgba(rgb(156, 150, 150), rgb(132, 144, 132), rgb(174, 174, 207), alpha);
@@ -96,6 +97,7 @@ main {
     border: inherit;
     flex-basis: 33%;
     padding: 0 .5rem;
+    
 
 }
 .variable{
