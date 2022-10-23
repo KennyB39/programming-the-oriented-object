@@ -16,10 +16,12 @@ header {
 
 main {
     margin: 2rem;
+    padding: 100;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    display: inline-block;
 
 }
 
@@ -78,7 +80,7 @@ main {
 
 .id{
     display: flex;
-    align-items: center;
+   justify-content: center;
     width: 100%;
     background-color: aliceblue;
     border: inherit;
@@ -88,12 +90,27 @@ main {
 }
 .email{
     display:flex ;
-    align-items: center;
+   justify-content: center;
     width: 100%;
     background-color: aliceblue;
     border: inherit;
     flex-basis: 33%;
     padding: 0 .5rem;
 
+}
+.variable{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(37, 23, 73);
+    color: rgb(135, 134, 134);
+    text-align: center;
 }
 
