@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-
+    z-index: 5;
 }
 
 header {
@@ -16,30 +16,101 @@ header {
 
 main {
     margin: 2rem;
+    padding: 100;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    display: inline-block;
 
 }
 
 .card {
     display: flex;
     flex-wrap: wrap;
-    width: 15vw;
-    height: 13vw;
+    width: 40vw;
     margin:1rem;
     box-shadow: 3px 3px 7px 1px rgba(rgb(156, 150, 150), rgb(132, 144, 132), rgb(174, 174, 207), alpha);
     background-color: blanchedalmond;
     justify-content: center;
+    position: relative;
+   transition: all .5s ease-in;
 
 }
 
 .card-head {
     width: 100%;
     height: fit-content;
-    background-color: bisque;
+    background-color: rgb(44, 25, 71);
     color: aliceblue;
 
+}
+
+.card-name {
+    font-size: larger;
+    padding: 0rem .75rem;
+    padding-top: .5rem;
+    display: flex;
+    justify-content: center;
+
+}
+.card-title {
+    padding: 0rem;
+    padding-bottom: .5rem;
+    display: flex;
+    justify-content: center;
+
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 75%;
+    height: 50%;
+    align-items: center;
+    font-size: smaller;
+    border: ipx solid rgb(132, 144, 132);
+    display: block;
+   width: 100%;
+   height: auto;
+
+}
+
+
+.id{
+    display: flex;
+   justify-content: center;
+    width: 100%;
+    background-color: aliceblue;
+    border: inherit;
+    flex-basis: 33%;
+    padding: 0 .5rem;
+
+}
+.email{
+    display:flex ;
+   justify-content: center;
+    width: 100%;
+    background-color: aliceblue;
+    border: inherit;
+    flex-basis: 33%;
+    padding: 0 .5rem;
+
+}
+.variable{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(37, 23, 73);
+    color: rgb(135, 134, 134);
+    text-align: center;
 }
 
