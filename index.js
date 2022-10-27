@@ -1,82 +1,64 @@
 const inquirer = require('inquirer');
-const Manager = require('./Manager');
-const Engineer = require('./Engineer');
-const Intern = require('./Intern ');
-const renderPage = require('../src/page');
-const { default: Choices } = require('inquirer/lib/objects/choices');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const buildTeam = require('./src/page');
+const teamMembers = [];
 
-class team {
-    constructor() {
-        this.member = [];
-    }
-    async initializeTeam() {
-        await this.addManager();
-        await this.makeChoice();
-    }
-
-    async addManager() {
-        await inquirer
-            .prompt([
+    function addManager() {
+        inquirer.prompt([
                 {
                     type: `input`,
                     name: `name`,
-                    message: `What is the team Managers' name??`,
+                    message: `What is the team Managers' name?`,
                 },
                 {
                     type: `input`,
                     name: `id`,
-                    message: `what is the team Managers' id??`,
+                    message: `what is the team Managers' id?`,
                 },
                 {
                     type: `input`,
                     name: `email`,
-                    message: `What is the team Managers' email??`,
+                    message: `What is the team Managers' email?`,
                 },
                 {
                     type: `input`,
                     name: `officeNumber`,
-                    message: `What is the team Managers' number??`,
+                    message: `What is the team Managers' number?`,
                 }
             ])
-
-            .then((managerObject) => {
-                this.member.push(new Manager(managerObject));
-                // console.log(this);
+            .then((manager) => {
+               teamMembers.push(new Manager(manager.name, manager.id, manager.email, manager.officeNumber));
+                makeChoice();
             });
     }
 
-    async makeChoice() {
-        await inquirer.prompt({
+    function makeChoice() {
+     inquirer.prompt({
             type: `list`,
             name: `choice`,
             message: `what would you like ot do now?`,
-            Choices: [`Add engineer`, `Add intern`, `Finish building`],
+            choices: [`Add engineer`, `Add intern`, `Finish building`],
         })
-            .then(async ({ choice }) => {
-                console.log(choice)
-                if (choice === 'Finish building') {
+            .then((userChoice) => {
+                if (userChoice.choice === 'Finish building') {
                     console.log('Getting things together')
-                    this.buildTeam(this.member)
+                    buildTeam(teamMembers);
                     return
                 }
-                else {
-                    await this.addEmployee(choice)
+                else if (userChoice.choice === 'Add intern') {
+                    addIntern()
+                }
+                else if (userChoice.choice === 'Add engineer') {
+                    addEngineer()
                 }
             });
     }
-    async addEmployee(passedChoice) {
-        if (passedChoice === 'Add Engineer') {
-            await this.addEngineer()
-        }
-        else {
-            await this.addIntern()
-        }
-        console.log('')
-    }
-    async addEngineer() {
-        console.log('Adding Engineer'); {
-            await inquirer
-                .prompt([
+   
+    function addEngineer() {
+        console.log('Adding Engineer'); 
+            inquirer.prompt([
                     {
                         type: `input`,
                         name: `name`,
@@ -101,16 +83,14 @@ class team {
                 ])
 
                 .then((engineerObject) => {
-                    this.member.push(new Engineer(engineerObject));
+                   teamMembers.push(new Engineer(engineerObject.name, engineerObject.id, engineerObject.email, engineerObject.github));
+                   makeChoice();
                 });
-
-            console.log('-------')
-        }
+        
     }
-    async addIntern() {
+    function addIntern() {
         console.log('adding Intern')
-        await inquirer
-            .prompt([
+        inquirer.prompt([
                 {
                     type: `input`,
                     name: `name`,
@@ -133,16 +113,10 @@ class team {
                 },
             ])
             .then((internObject) => {
-                this.member.push(new Intern(internObject));
+               teamMembers.push(new Intern(internObject.name, internObject.id, internObject.email, internObject.school));
+                makeChoice();
             });
-        console.log(`-------`)
     }
-    async buildTeam(passedArray) {
-        console.log(`Building Team`)
-        console.log(passedArray)
-        console.log(`--------`)
-        renderPage(passedArray)
-    }
-}
+    
+ addManager();
 
-module.exports = team;

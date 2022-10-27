@@ -1,54 +1,11 @@
-const { rejects } = require('assert')
 const fs = require('fs')
-const { resolve } = require('path')
+const path = require('path')
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
-function employeeCard(passedObject) {
-    let variable
-    ({ name, id, email, officeNumber, github, school } = passedObject)
-
-    if (officeNumber) {
-        variable = `office number: ${officeNumber}`
-    }
-    else if (github) {
-        variable = `Github: <a href="https://github.com/${github}"> ${github}</a>`
-    }
-    else {
-        variable = `School: ${school}`
-    }
-
-
-    return `
-    <div class="card">
-    <div class="card-head">
-        <div class="card-name"> ${name} </div>
-        <div class="card-title"> ${passedObject.constructor.name} </div>
-    </div>
-    <div class="card-body">
-        <div class="id">ID: ${id}</div>
-        <div class="email">Email: <a href="mailto:${email}">${email}</a></div>
-        <div class="variable">${variable}</div>
-    </div>
-</div>
-    `
-}
-
-function howMany(passedObjectArray) {
-
-    let ret = ``
-    console.log(passedObjectArray)
-
-    for (i = 0; i < passedObjectArray.length; i++) {
-        console.log(`${i}`)
-        console.log(passedObjectArray[i])
-        console.log(passedObjectArray[i].constructor.name)
-        ret += employeeCard(passedObjectArray[i])
-    }
-    return ret;
-}
-
-module.exports = function (passedObjectArray) {
+function buildTeam(teamMembers){
     let page = `
-    
     <!DOCTYPE html>
     <html lang="en">
     
@@ -66,28 +23,76 @@ module.exports = function (passedObjectArray) {
             My Team
         </header>
     
-        <main>
-            
-            ${howMany(passedObjectArray)}
-    
-        </main>
-    
-    </body>
-    
-    </html>
+        <main>    
     
     `
+    for (let i = 0; i < teamMembers.length; i++){
+        let teamMember = teamMembers[i];
+        if (teamMember.getRole() === 'Manager'){
+    page = page + `
+    <div class="card">
+    <div class="card-head">
+        <div class="card-name"> ${teamMember.getName()} </div>
+        <div class="card-title"> ${teamMember.getRole()} </div>
+    </div>
+    <div class="card-body">
+        <div class="id">ID: ${teamMember.getId()}</div>
+        <div class="email">Email: <a href="mailto:${teamMember.getEmail()}">${teamMember.getEmail()}</a></div>
+        <div class="variable">${teamMember.getOfficeNumber}</div>
+    </div>
+</div>
+    `
 
-    new promise((resolve, rejects) => {
-        fs.writeFile('../dist/index.html',page, err => {
-            if(err){
-                rejects(err);
-                return;
-            }
-            resolve({
-                ok: true,
-                message: 'File created!'
-            });
-        });
-    });
+        }else if (teamMember.getRole() === 'Intern'){
+            page = page +  `
+            <div class="card">
+            <div class="card-head">
+                <div class="card-name"> ${teamMember.getName()} </div>
+                <div class="card-title"> ${teamMember.getRole()} </div>
+            </div>
+            <div class="card-body">
+                <div class="id">ID: ${teamMember.getId()}</div>
+                <div class="email">Email: <a href="mailto:${teamMember.getEmail()}">${teamMember.getEmail()}</a></div>
+                <div class="variable">${teamMember.getSchool}</div>
+            </div>
+        </div>
+            `
+        }else if(teamMember.getRole()=== 'engineer'){
+            page = page + `
+            <div class="card">
+            <div class="card-head">
+                <div class="card-name"> ${teamMember.getName()} </div>
+                <div class="card-title"> ${teamMember.getRole()} </div>
+            </div>
+            <div class="card-body">
+                <div class="id">ID: ${teamMember.getId()}</div>
+                <div class="email">Email: <a href="mailto:${teamMember.getEmail()}">${teamMember.getEmail()}</a></div>
+                <div class="variable">${teamMember.getGithub}</div>
+            </div>
+        </div>
+            `
+        }
+    }
+page = page + `</main>
+
+</body>
+
+</html>
+`
+buildTeamFile(page)
 }
+
+
+
+function buildTeamFile(page){
+    
+        fs.writeFile('../dist/index.html', page , err => {
+            if(err){
+               console.log(err);
+            }
+           console.log("File Created")
+        });
+    }
+
+
+    module.exports = buildTeam;
